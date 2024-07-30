@@ -1,6 +1,6 @@
 //Blogging App using Hooks
 import React from "react";
-import { useState } from "react";
+import { useState , useRef } from "react";
 
 export default function Blog(){
     
@@ -8,6 +8,7 @@ export default function Blog(){
     // const [content , setContent] = useState("")
     const [formData, setFormData] = useState({title: "", content: ""})
     const [blogs, setBlogs] = useState([]);
+    const titleRef = useRef(null);
     
     //Passing the synthetic event as argument to stop refreshing the page on submit
     function handleSubmit(e){
@@ -15,6 +16,7 @@ export default function Blog(){
 
         setBlogs([{title : formData.title, content : formData.content},...blogs]);
         setFormData({title : "", content: ""});
+        titleRef.current.focus();
     }
 
     function removeBlog(i) {
@@ -38,6 +40,7 @@ export default function Blog(){
                                 placeholder="Enter the Title of the Blog here.."
                                 value={formData.title}
                                 onChange={(e) => setFormData({title: e.target.value, content: formData.content})}//when input area chnges we have to store the changes
+                                ref={titleRef}
                                 />
                 </Row >
 
